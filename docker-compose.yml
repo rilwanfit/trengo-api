@@ -1,0 +1,39 @@
+version: '3.7'
+services:
+  php:
+    image: "vonq/php:7.4-0.12.0"
+    user: ${HOST_UID-1000}:${HOST_GID-1000}
+    working_dir: /app
+    environment:
+      - AM_I_INSIDE_DOCKER=true
+      - COMPOSER_AUTH
+      - COMPOSER_MEMORY_LIMIT=-1
+      - COMPOSER_CACHE_DIR=/tmp/composer_cache
+    volumes:
+        - ~/.composer/cache:/tmp/composer_cache:delegated
+        - ./:/app
+
+  mysql:
+    command: --sql_mode="NO_ZERO_IN_DATE,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION"
+    image: mysql:5.7.27
+    environment:
+      MYSQL_ROOT_PASSWORD: development
+      MYSQL_USER: rilwan
+      MYSQL_PASSWORD: secret
+      MYSQL_DATABASE: api_dev
+    restart: always
+    ports:
+      - "3306:3306"
+    volumes:
+      - api-mysql-data:/var/lib/mysql:delegated
+
+  redis:
+    image: redis:3.2.11
+    ports:
+      - "6379:6379"
+    volumes:
+      - api-redis-data:/data:delegated
+
+volumes:
+  api-mysql-data:
+  api-redis-data:
