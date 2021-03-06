@@ -32,13 +32,6 @@ X-RateLimit-Limit → 30
 X-RateLimit-Remaining → 29
 ```
 
-## **Tokens**
-
-The Access Token lives for `{{access-token-expires-in}}`. (equivalent to `{{access-token-expires-in-minutes}}` minutes).
-While the Refresh Token lives for `{{refresh-token-expires-in}}`. (equivalent to `{{refresh-token-expires-in-minutes}}` minutes).
-
-*You will need to re-authenticate the user when the token expires.*
-
 ## **Pagination**
 
 By default, all fetch requests return the first `{{pagination-limit}}` items in the list. Check the **Query Parameters** for how to control the pagination.

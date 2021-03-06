@@ -83,7 +83,6 @@ trait TestsRequestHelperTrait
     {
         // Get or create a testing user. It will get your existing user if you already called this function from your
         // test. Or create one if you never called this function from your tests "Only if the endpoint is protected".
-        $this->getTestingUser();
 
         // read the $endpoint property from the test and set the verb and the uri as properties on this trait
         $endpoint = $this->parseEndpoint();

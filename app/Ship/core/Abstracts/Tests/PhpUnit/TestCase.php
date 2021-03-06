@@ -4,7 +4,6 @@ namespace Apiato\Core\Abstracts\Tests\PhpUnit;
 
 use Apiato\Core\Traits\HashIdTrait;
 use Apiato\Core\Traits\TestCaseTrait;
-use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsAuthHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsMockHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsRequestHelperTrait;
 use Apiato\Core\Traits\TestsTraits\PhpUnit\TestsResponseHelperTrait;
@@ -26,7 +25,6 @@ abstract class TestCase extends LaravelTestCase
         TestsRequestHelperTrait,
         TestsResponseHelperTrait,
         TestsMockHelperTrait,
-        TestsAuthHelperTrait,
         TestsUploadHelperTrait,
         HashIdTrait,
         RefreshDatabase;
@@ -70,9 +68,6 @@ abstract class TestCase extends LaravelTestCase
         // seed the database
         $this->seed();
 
-        // Install Passport Client for Testing
-        $this->setupPassportOAuth2();
-
         $this->app[Kernel::class]->setArtisan(null);
     }
 
@@ -88,7 +83,6 @@ abstract class TestCase extends LaravelTestCase
 
             $this->artisan('migrate:fresh');
             $this->seed();
-            $this->setupPassportOAuth2();
 
             $this->app[Kernel::class]->setArtisan(null);
 
