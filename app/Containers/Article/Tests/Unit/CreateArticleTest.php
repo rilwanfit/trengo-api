@@ -11,7 +11,8 @@ use Illuminate\Support\Facades\App;
 
 class CreateArticleTest extends TestCase
 {
-    public function testCreateUser_()
+    /** @test */
+    public function it_create_article()
     {
         $data = [
             'title' => 'What is Lorem Ipsum?',

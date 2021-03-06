@@ -1,0 +1,8 @@
+{
+  "name": "rilwanfit/article",
+  "description": "article Container.",
+  "type": "rilwanfit-container",
+  "require": {
+
+  }
+}

@@ -26,10 +26,13 @@ class CreateArticleTask extends Task
     public function run(array $data)
     {
         try {
+            $categories = $data['categories'];
+            unset($data['categories']);
+
             /** @var Article $article */
             $article =  $this->repository->create($data);
 
-            $article->categories()->attach($data['categories']);
+            $article->categories()->attach($categories);
         } catch (Exception $exception) {
             throw new CreateArticleFailedException();
         }
