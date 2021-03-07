@@ -2,22 +2,21 @@
 
 /**
  * @apiGroup           Article
- * @apiName            createArticle
+ * @apiName            rateArticle
  *
- * @api                {POST} /v1/articles Create an article
+ * @api                {POST} /v1/rate-articles Rate An Article
  * @apiDescription     Endpoint description here..
  *
  * @apiVersion         1.0.0
  * @apiPermission      none
  *
- * @apiParam           {String}  title min 10 chars
- * @apiParam           {String}  body min 10 chars
- * @apiParam           {String[]}  categories
+ * @apiParam           {String}  article_id
+ * @apiParam           {String}  score [1,2,3,4,5]
  *
  * @apiSuccessExample  {json}  Success-Response:
  * HTTP/1.1 202 OK
 {
-  "message":"An article created successfully.",
+  "message":"An article rated successfully.",
   "article_id":1
 }
  * @apiErrorExample {json} Error-Response:
@@ -28,7 +27,7 @@
  */
 
 /** @var Route $router */
-$router->post('articles', [
-    'as' => 'api_article_create_article',
-    'uses'  => 'Controller@createArticle',
+$router->post('rate-articles', [
+    'as' => 'api_article_rate_article',
+    'uses'  => 'Controller@rateArticle',
 ]);

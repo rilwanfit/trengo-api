@@ -35,7 +35,7 @@ class CreateArticleTest extends ApiTestCase
         $response = $this->makeCall($data);
 
         // assert response status is correct
-        $response->assertStatus(202);
+        $response->assertStatus(201);
 
         // convert JSON response string to Object
         $responseContent = $this->getResponseContentObject();

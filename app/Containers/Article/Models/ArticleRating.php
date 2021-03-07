@@ -15,8 +15,9 @@ class ArticleRating extends Model
     protected $table = "article_ratings";
 
     protected $fillable = [
+        'article_id',
         'rating',
-        'ip',
+        'ip_address',
     ];
 
     protected $dates = [

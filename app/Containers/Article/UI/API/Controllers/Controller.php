@@ -2,9 +2,11 @@
 
 namespace App\Containers\Article\UI\API\Controllers;
 
+use App\Containers\Article\Exceptions\ArticleAlreadyRatedByThisUserException;
 use App\Containers\Article\UI\API\Requests\CreateArticleRequest;
 use App\Containers\Article\UI\API\Requests\FindAllArticlesRequest;
 use App\Containers\Article\UI\API\Requests\FindArticleByIdRequest;
+use App\Containers\Article\UI\API\Requests\RateArticleRequest;
 use App\Containers\Article\UI\API\Transformers\ArticleTransformer;
 use App\Ship\Parents\Controllers\ApiController;
 use Apiato\Core\Foundation\Facades\Apiato;
@@ -25,9 +27,9 @@ class Controller extends ApiController
     {
         $article = Apiato::call('Article@CreateArticleAction', [new DataTransporter($request)]);
 
-        return $this->accepted([
+        return $this->created([
           'message'           => 'An article created successfully.',
-          'stripe_account_id' => $article->id,
+          'article_id' => $article->id,
         ]);
     }
 
@@ -58,5 +60,30 @@ class Controller extends ApiController
         $user = Apiato::call('Article@FindAllArticlesAction', [$dataTransporter]);
 
         return $this->transform($user, ArticleTransformer::class);
+    }
+
+    /**
+     * @param RateArticleRequest $request
+     * @return \Illuminate\Http\JsonResponse
+     */
+    public function rateArticle(RateArticleRequest $request)
+    {
+        $dataTransporter = new DataTransporter($request);
+        $dataTransporter->ip = $request->ip();
+
+        try {
+            $article = Apiato::call('Article@RateArticleAction', [$dataTransporter]);
+        } catch (ArticleAlreadyRatedByThisUserException $exception) {
+            // log message
+            return $this->accepted([
+                'message'           => 'You already rated this article.',
+                'article_id' => $dataTransporter->article_id,
+            ], 400);
+        }
+
+        return $this->accepted([
+            'message'           => 'An article rated successfully.',
+            'article_id' => $article['article_id'],
+        ]);
     }
 }
