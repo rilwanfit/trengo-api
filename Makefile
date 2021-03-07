@@ -4,13 +4,14 @@
 .DOCKER_RUN_WORKSPACE := $(.DOCKER_COMPOSE_LARADOCK) exec workspace
 
 # -- Default -- #
-.PHONY: setup start stop destroy migrate seed generate-docs test qa
+.PHONY: setup start stop destroy migrate seed generate-docs test qa calculated-weighted-average
 setup: dependencies cp-env-file ## Setup the Project
 start: up ## Start the project
 stop: down ## Stop the project
 destroy: down-with-volumes ## Destroy the project and its volumes
 migrate: db-migrate ## Run migrations
-seed: db-seed ## Run seeders
+seed: db-seed calculated-weighted-average ## Run seeders
+calculated-weighted-average: calculated-weighted-average ##
 generate-docs: generate-docs
 test: test ## Run the test suite
 qa: composer-validate php-cs-fixer phpstan ## Run the quality assurance suite
@@ -50,6 +51,9 @@ db-migrate:
 
 db-seed:
 	$(.DOCKER_RUN_WORKSPACE) php artisan db:seed
+
+calculated-weighted-average:
+	$(.DOCKER_RUN_WORKSPACE) php artisan trengo:update:weighted-average-rating
 
 phpstan:
 	$(.DOCKER_RUN_WORKSPACE) php -d memory_limit=4G ./vendor/bin/phpstan analyse -l max src/

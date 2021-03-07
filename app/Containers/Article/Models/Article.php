@@ -24,4 +24,9 @@ class Article extends Model
     {
         return $this->hasMany(ArticleView::class);
     }
+
+    public function ratings()
+    {
+        return $this->hasMany(ArticleRating::class);
+    }
 }

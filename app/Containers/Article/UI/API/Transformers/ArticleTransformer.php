@@ -33,6 +33,7 @@ class ArticleTransformer extends Transformer
             'id' => $article->getHashedKey(),
             'title' => $article->title,
             'body' => $article->body,
+            'average_rating' => $article->average_rating,
             'created_at' => $article->created_at,
             'updated_at' => $article->updated_at,
             'readable_created_at' => $article->created_at === null ? '' : $article->created_at->diffForHumans(),
