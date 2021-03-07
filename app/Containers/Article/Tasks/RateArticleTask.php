@@ -28,10 +28,9 @@ class RateArticleTask extends Task
     public function run(array $data)
     {
         try {
-            /** @var ArticleRating $article */
+            /** @var ArticleRating $articleRating */
             $articleRating =  $this->repository->create($data);
         } catch (Exception $exception) {
-            var_dump($exception->getMessage());die;
             throw new RateArticleFailedException();
         }
 

@@ -6,7 +6,7 @@ use Apiato\Core\Foundation\Facades\Apiato;
 use App\Ship\Parents\Seeders\Seeder;
 use Faker\Generator;
 
-class ArticleArticleViewsSeeder_3 extends Seeder
+class ArticleArticleRatesSeeder_4 extends Seeder
 {
     /**
      * @var Generator
@@ -25,13 +25,16 @@ class ArticleArticleViewsSeeder_3 extends Seeder
      */
     public function run()
     {
-        $views = [];
-        for($i = 0; $i < 100; ++$i) {
-            $views[rand(1,1000)][] = [
-                'ip_address' => $this->faker->ipv4
+        $rates = [];
+        for($i = 0; $i < 1000; ++$i) {
+            $articleId = rand(1,100);
+            $rates[$articleId][] = [
+                'article_id' => $articleId,
+                'ip_address' => $this->faker->ipv4,
+                'rating' => rand(1,5)
             ];
         }
 
-        Apiato::call('Article@CreateMultipleViewsPerArticleTask', [$views]);
+        Apiato::call('Article@CreateMultipleRatesPerArticleTask', [$rates]);
     }
 }

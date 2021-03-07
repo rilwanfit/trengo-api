@@ -37,7 +37,7 @@ class FindAllArticlesTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         $this->assertInstanceOf(\stdClass::class, $responseContent);
-        $this->assertCount(1, $responseContent->data);
+        $this->assertStringContainsString('Title 1', $responseContent->data[0]->title);
     }
 
     /** @test */
@@ -50,7 +50,7 @@ class FindAllArticlesTest extends ApiTestCase
         $responseContent = $this->getResponseContentObject();
 
         $this->assertInstanceOf(\stdClass::class, $responseContent);
-        $this->assertCount(1, $responseContent->data);
+        $this->assertStringContainsString('Body 1', $responseContent->data[0]->body);
     }
 
     /** @test */

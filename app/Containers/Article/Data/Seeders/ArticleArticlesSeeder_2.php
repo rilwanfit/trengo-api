@@ -23,7 +23,7 @@ class ArticleArticlesSeeder_2 extends Seeder
 
     public function run()
     {
-        for($i = 0; $i < 10; ++$i) {
+        for($i = 0; $i < 100; ++$i) {
             $data = [
                 'title' => 'Title ' . $i . $this->faker->articleTitle,
                 'body' => 'Body ' . $i . $this->faker->articleContent,
