@@ -28,7 +28,6 @@ class FindArticleByIdTask extends Task
         try {
             $article = $this->repository->find($articleId);
         } catch (Exception $e) {
-            var_dump($e->getMessage());die;
             throw new NotFoundException();
         }
 

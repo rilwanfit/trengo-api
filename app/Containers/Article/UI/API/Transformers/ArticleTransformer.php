@@ -11,7 +11,7 @@ class ArticleTransformer extends Transformer
      * @var  array
      */
     protected $availableIncludes = [
-
+        'categories'
     ];
 
     /**
@@ -38,5 +38,10 @@ class ArticleTransformer extends Transformer
             'readable_created_at' => $article->created_at === null ? '' : $article->created_at->diffForHumans(),
             'readable_updated_at' => $article->updated_at === null ? '' : $article->updated_at->diffForHumans(),
         ];
+    }
+
+    public function includeCategories(Article $article)
+    {
+        return $this->collection($article->categories, new CategoryTransformer());
     }
 }

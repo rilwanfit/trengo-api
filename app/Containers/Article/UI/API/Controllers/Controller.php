@@ -3,6 +3,7 @@
 namespace App\Containers\Article\UI\API\Controllers;
 
 use App\Containers\Article\UI\API\Requests\CreateArticleRequest;
+use App\Containers\Article\UI\API\Requests\FindAllArticlesRequest;
 use App\Containers\Article\UI\API\Requests\FindArticleByIdRequest;
 use App\Containers\Article\UI\API\Transformers\ArticleTransformer;
 use App\Ship\Parents\Controllers\ApiController;
@@ -41,6 +42,20 @@ class Controller extends ApiController
         $dataTransporter->ip = $request->ip();
 
         $user = Apiato::call('Article@FindArticleByIdAction', [$dataTransporter]);
+
+        return $this->transform($user, ArticleTransformer::class);
+    }
+
+    /**
+     * @param FindAllArticlesRequest $request
+     *
+     * @return  mixed
+     */
+    public function findAllArticles(FindAllArticlesRequest $request)
+    {
+        $dataTransporter = new DataTransporter($request);
+
+        $user = Apiato::call('Article@FindAllArticlesAction', [$dataTransporter]);
 
         return $this->transform($user, ArticleTransformer::class);
     }

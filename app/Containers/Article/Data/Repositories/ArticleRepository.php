@@ -7,6 +7,13 @@ use App\Ship\Parents\Repositories\Repository;
 
 class ArticleRepository extends Repository
 {
+    protected $fieldSearchable = [
+        'title' => 'like',
+        'body' => 'like',
+        'created_at' => 'between',
+        'categories.id' => 'in'
+    ];
+
     /**
      * Specify Model class name.
      *

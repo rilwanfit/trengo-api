@@ -25,8 +25,8 @@ class ArticleArticlesSeeder_2 extends Seeder
     {
         for($i = 0; $i < 10; ++$i) {
             $data = [
-                'title' => $this->faker->articleTitle,
-                'body' => $this->faker->articleContent,
+                'title' => 'Title ' . $i . $this->faker->articleTitle,
+                'body' => 'Body ' . $i . $this->faker->articleContent,
                 'categories' => [
                     rand(1, 5),
                     rand(6, 10),
