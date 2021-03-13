@@ -5,7 +5,7 @@
 
 # -- Default -- #
 .PHONY: setup start stop destroy migrate seed generate-docs test qa calculated-weighted-average
-setup: dependencies cp-env-file ## Setup the Project
+setup: cp-env-file dependencies  ## Setup the Project
 start: up ## Start the project
 stop: down ## Stop the project
 destroy: down-with-volumes ## Destroy the project and its volumes
